@@ -1,13 +1,17 @@
-import streamlit as st
+from pathlib import Path
 import pickle
+
 import numpy as np
+import streamlit as st
 
 # Load Model
 try:
-    with open('model.pkl', 'rb') as file:
+    model_path = Path(__file__).with_name("model.pkl")
+    with model_path.open("rb") as file:
         model = pickle.load(file)
 except FileNotFoundError:
     st.error("File model.pkl tidak ditemukan!")
+    st.stop()
 
 st.title("Aplikasi Prediksi Pembelian 🛒")
 st.write("Aplikasi ini memprediksi apakah pelanggan akan membeli produk berdasarkan Umur dan Gaji.")
